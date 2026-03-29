@@ -7,7 +7,7 @@
     <meta name="keywords" content="مؤسسة كيان الإبداع, ديكور خشبي الرياض, نجار الرياض, تفصيل خزائن, غرف نوم, ديكورات خشبية, صيانة نجارة, ديكورات خشبية الرياض">
     
     <title>مؤسسة كيان الإبداع للديكور الخشبي | الرياض</title>
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -27,305 +27,482 @@
     </script>
     
     <style>
-        /* ================= المتغيرات والألوان (باليتة خشبية فخمة) ================= */
+        /* ================= المتغيرات والألوان (الوضع الداكن الخشبي الفخم) ================= */
         :root {
-            /* درجات الأخشاب والذهبي */
-            --bg-color: #231812; /* بني خشبي داكن جداً للأساس */
-            --surface-color: #382518; /* لون خشب الجوز المائل للدفء */
-            --gold-primary: #d4af37; /* ذهبي فخم يعطي طابع الرقي */
+            --bg-color: #1a110b; /* بني داكن جداً أقرب للأسود */
+            --surface-color: #2c1e16; /* لون خشب الجوز الداكن */
+            --wood-gradient: linear-gradient(145deg, #3d281c, #1f140e); /* تدرج خشبي فخم */
+            --gold-primary: #d4af37; /* ذهبي فخم */
             --gold-light: #f3e5ab; 
             --text-light: #f9f6f0; 
             --text-muted: #c4b5a9; 
+            --silver: #a3a3a3; 
             
-            --header-bg: rgba(56, 37, 24, 0.85); /* شفافية للرأس مع تأثير الزجاج */
-            --border-color: rgba(212, 175, 55, 0.2);
-            --section-alt-bg: #2d1f16;
+            --header-bg: rgba(44, 30, 22, 0.85); /* شفافية للرأس مع تأثير الزجاج */
+            --border-color: rgba(212, 175, 55, 0.25);
+            --input-bg: rgba(0,0,0,0.3);
+            --input-border: rgba(212, 175, 55, 0.15);
+            --footer-bg: #140d08;
+            --map-filter: grayscale(80%) sepia(40%) hue-rotate(340deg) brightness(60%) contrast(120%);
+            --badge-bg: rgba(0,0,0,0.85);
+            --card-hover-bg: #38261c;
+            --section-alt-bg: #22160f;
+            --loader-bg: #1a110b;
+        }
+
+        /* ================= المتغيرات والألوان (الوضع الفاتح الخشبي) ================= */
+        body.light-mode {
+            --bg-color: #f7f3ec; /* بيج فاتح لون الخشب الأبيض */
+            --surface-color: #ffffff; 
+            --wood-gradient: linear-gradient(145deg, #ffffff, #eaddc4); /* تدرج خشبي فاتح */
+            --gold-primary: #b38b47; 
+            --gold-light: #1a110b; 
+            --text-light: #2c1e16; 
+            --text-muted: #6b5a4e; 
+            --silver: #6b5a4e; 
             
-            /* ألوان الأزرار العائمة */
-            --whatsapp-color: #25D366;
-            --call-color: #d4af37;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(179, 139, 71, 0.3);
+            --input-bg: #f9f6f0;
+            --input-border: #d4c4b7;
+            --footer-bg: #eaddc4;
+            --map-filter: grayscale(30%) sepia(20%) hue-rotate(340deg); 
+            --badge-bg: rgba(255, 255, 255, 0.95);
+            --card-hover-bg: #fdfbf7;
+            --section-alt-bg: #eee7da;
+            --loader-bg: #f7f3ec;
         }
 
         /* الإعدادات العامة والخطوط */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; scroll-behavior: smooth; }
+        html, body { width: 100%; overflow-x: hidden; }
+        body { background-color: var(--bg-color); color: var(--text-light); line-height: 1.6; padding-bottom: 100px; transition: background-color 0.4s ease, color 0.4s ease; }
+        body.no-scroll { overflow: hidden; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            line-height: 1.6;
-            padding-bottom: 50px;
-        }
+        /* ================= نظام اللغتين (CSS) ================= */
+        html[lang="ar"] .en { display: none; }
+        html[lang="en"] .ar { display: none; }
+        html[lang="en"] { direction: ltr; }
 
-        /* ================= الرأس العائم الفخم (Header) ================= */
-        header {
-            background-color: var(--header-bg); 
-            padding: 15px 30px;
-            position: fixed; 
-            width: 90%; 
-            top: 20px; 
-            left: 5%;
-            z-index: 1000;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            border: 1px solid var(--border-color);
-            border-radius: 50px; /* نهايات دائرية فخمة */
-            backdrop-filter: blur(12px); /* تأثير زجاجي واقعي */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-        }
+        /* شاشة التحميل (Loader) */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--loader-bg); z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        #loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
         
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .loader-image-frame {
+            width: 160px; height: 160px; border-radius: 50%;
+            background: var(--wood-gradient);
+            border: 4px solid transparent; border-top-color: var(--gold-primary); border-bottom-color: var(--gold-primary);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15); display: flex; justify-content: center; align-items: center;
+            margin-bottom: 25px; animation: spinGlow 2s linear infinite;
         }
+        .loader-image-frame i { font-size: 4rem; color: var(--gold-primary); animation: counterSpinPulse 2s linear infinite; }
+        @keyframes spinGlow { 0% { transform: rotate(0deg); } 50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); } 100% { transform: rotate(360deg); } }
+        @keyframes counterSpinPulse { 0% { transform: rotate(0deg) scale(0.95); } 50% { transform: rotate(-180deg) scale(1.1); } 100% { transform: rotate(-360deg) scale(0.95); } }
+        
+        .loading-text { color: var(--gold-primary); font-size: 1.2rem; font-weight: bold; margin-top: 10px; }
+        .loader-footer { position: absolute; bottom: 40px; width: 100%; text-align: center; }
 
-        .site-title { 
-            color: var(--gold-primary); 
-            font-size: 1.2rem; 
-            font-weight: 800; 
+        /* ================= الرأس العائم بنهايات دائرية (Header) ================= */
+        header {
+            background-color: var(--header-bg); padding: 12px 25px;
+            position: fixed; width: 92%; top: 20px; left: 4%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid var(--border-color); backdrop-filter: blur(15px);
+            border-radius: 50px; /* نهايات نصف دائرية احترافية */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
         }
-
-        /* حالة العمل (24 ساعة) */
-        .work-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 5px 15px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        
+        .site-title { color: var(--gold-primary); font-size: 1.15rem; font-weight: 800; white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .menu-btn { color: var(--gold-primary); font-size: 1.4rem; cursor: pointer; background: none; border: none; transition: 0.3s; }
+        .menu-btn:hover { transform: scale(1.1); }
+        
+        .theme-btn, .lang-btn {
+            background: transparent; border: 1px solid var(--gold-primary); color: var(--gold-primary);
+            padding: 4px 10px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center; height: 34px;
         }
+        .theme-btn:hover, .lang-btn:hover { background: var(--gold-primary); color: var(--bg-color); }
 
-        .status-text {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
+        /* مؤشر العمل 24 ساعة */
         .status-dot {
-            width: 12px;
-            height: 12px;
-            background-color: #2ecc71;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #2ecc71;
-            animation: pulseGreen 1.5s infinite;
+            width: 10px; height: 10px; background-color: #2ecc71; border-radius: 50%;
+            box-shadow: 0 0 10px #2ecc71; animation: pulseGreen 1.5s infinite;
         }
+        @keyframes pulseGreen { 0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); } 100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); } }
 
-        @keyframes pulseGreen {
-            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        /* القائمة الجانبية */
+        .side-menu {
+            position: fixed; top: 85px; width: 260px; height: calc(100vh - 85px);
+            background: var(--surface-color); transition: 0.4s; z-index: 999; padding-top: 20px;
+            right: -100%; border-radius: 20px 0 0 20px; border: 1px solid var(--border-color);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
         }
+        html[lang="ar"] .side-menu.active { right: 0; }
+        html[lang="en"] .side-menu { left: -100%; right: auto; border-radius: 0 20px 20px 0; }
+        html[lang="en"] .side-menu.active { left: 0; }
+        .side-menu a { display: block; padding: 15px 20px; color: var(--text-light); text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); transition: 0.3s; }
+        html[lang="ar"] .side-menu a:hover { color: var(--gold-primary); padding-right: 30px; background: rgba(212, 175, 55, 0.05); }
+        html[lang="en"] .side-menu a:hover { color: var(--gold-primary); padding-left: 30px; background: rgba(212, 175, 55, 0.05); }
 
-        /* ================= الأقسام العامة ================= */
-        section { padding: 120px 5% 60px; }
+        /* الأقسام العامة */
+        section { padding: 130px 5% 60px; }
         .section-alt { background-color: var(--section-alt-bg); }
-        .section-title { text-align: center; color: var(--gold-primary); font-size: 2.2rem; margin-bottom: 40px; position: relative; }
-        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold-primary); margin: 15px auto; border-radius: 2px; }
+        .section-title { text-align: center; color: var(--gold-primary); font-size: 2.5rem; margin-bottom: 40px; position: relative; }
+        .section-title::after { content: ''; display: block; width: 80px; height: 3px; background: var(--gold-primary); margin: 15px auto; border-radius: 2px; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ================= الرئيسية (Hero) ================= */
+        /* الرئيسية */
         .hero {
-            text-align: center; padding-top: 180px; min-height: 70vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; 
+            text-align: center; padding-top: 180px; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             background: radial-gradient(circle at center, var(--surface-color) 0%, var(--bg-color) 100%);
             position: relative;
         }
-        /* زخرفة خشبية خفيفة في الخلفية */
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M0 10c20 0 30 10 50 10s30-10 50-10v2c-20 0-30 10-50 10s-30-10-50-10v-2z" fill="%23d4af37" opacity="0.03"/></svg>');
             pointer-events: none;
         }
+        .hero h1 { color: var(--gold-primary); font-size: clamp(2rem, 4vw, 3rem); max-width: 900px; line-height: 1.4; margin-bottom: 20px; z-index: 1; }
+        .hero p { max-width: 800px; font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 30px; z-index: 1; }
 
-        .hero h1 {
-            color: var(--gold-primary); font-size: clamp(2rem, 4vw, 3rem); max-width: 900px;
-            line-height: 1.4; margin-bottom: 20px; z-index: 1;
-        }
-        .hero p { max-width: 800px; font-size: 1.2rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 30px; z-index: 1; }
-
-        /* ================= الخدمات ================= */
+        /* من نحن والخدمات والمزايا */
+        .about-text { background: var(--wood-gradient); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); text-align: center; font-size: 1.1rem; line-height: 1.9; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         
-        .service-card {
-            background-color: var(--surface-color); 
-            border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 40px 20px; text-align: center; transition: 0.4s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .service-card:hover { 
-            transform: translateY(-10px); 
-            border-color: var(--gold-primary); 
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15); 
-        }
+        .service-card { background: var(--wood-gradient); border: 1px solid var(--border-color); border-radius: 20px; padding: 35px 20px; text-align: center; transition: 0.4s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15); border-color: var(--gold-primary); }
         
-        .icon-wrapper {
-            width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%;
-            background: var(--bg-color); border: 2px solid var(--gold-primary);
-            display: flex; justify-content: center; align-items: center;
-        }
-        .icon-wrapper i { font-size: 2.2rem; color: var(--gold-primary); }
+        .icon-3d-wrapper { width: 75px; height: 75px; margin: 0 auto 20px; border-radius: 50%; background: var(--bg-color); border: 2px solid var(--gold-primary); display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .icon-3d-wrapper i { font-size: 2rem; color: var(--gold-primary); transition: 0.3s; }
         .service-card h3 { color: var(--gold-light); margin-bottom: 15px; font-size: 1.4rem; }
-        .service-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+        .service-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
 
-        /* ================= تواصل معنا والخريطة ================= */
-        .contact-info { text-align: center; margin-bottom: 40px; }
-        .contact-info p { font-size: 1.2rem; margin-bottom: 15px; color: var(--text-light); font-weight: 500;}
-        .contact-info i { margin-left: 10px; color: var(--gold-primary); font-size: 1.4rem; }
+        .feature-card { text-align: center; padding: 20px; }
+        .feature-card .icon-3d-wrapper { width: 85px; height: 85px; margin-bottom: 20px; }
+        .feature-card h3 { margin-bottom: 10px; color: var(--text-light); }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* تواصل معنا والخريطة ونموذج الاتصال */
+        .contact-info { text-align: center; margin-bottom: 40px; padding: 0 10px; }
+        .contact-info p { font-size: 1.1rem; margin-bottom: 15px; color: var(--text-light); font-weight: 500;}
+        html[lang="ar"] .contact-info i { margin-left: 10px; color: var(--gold-primary); font-size: 1.3rem;}
+        html[lang="en"] .contact-info i { margin-right: 10px; color: var(--gold-primary); font-size: 1.3rem;}
         
-        .map-container { 
-            position: relative; border-radius: 20px; overflow: hidden; 
-            border: 2px solid var(--border-color); height: 400px; width: 100%; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .map-container iframe { 
-            width: 100%; height: 100%; border: none; 
-            /* تأثير لوني لدمج الخريطة مع ألوان الموقع */
-            filter: grayscale(80%) sepia(40%) hue-rotate(340deg) brightness(80%) contrast(120%);
-        }
-        .service-area-badge {
-            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-            background: var(--header-bg); border: 1px solid var(--gold-primary);
-            color: var(--gold-primary); padding: 10px 25px; border-radius: 30px;
-            font-weight: bold; font-size: 1.1rem; backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            pointer-events: none; z-index: 10;
-        }
+        .map-container { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid var(--border-color); height: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 50px; }
+        .map-container iframe { width: 100%; height: 100%; border: none; filter: var(--map-filter); transition: filter 0.4s ease; }
+        
+        .service-area-badge { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: var(--header-bg); color: var(--gold-primary); padding: 10px 25px; border-radius: 30px; font-size: 1rem; border: 1px solid var(--gold-primary); pointer-events: none; z-index: 10; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); backdrop-filter: blur(5px); white-space: nowrap;}
 
-        /* ================= الأزرار العائمة (WhatsApp & Call) ================= */
-        .floating-buttons {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 9999;
-        }
+        /* نموذج الاتصال */
+        .contact-form-container { max-width: 700px; margin: 0 auto; background: var(--wood-gradient); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .contact-form-container h3 { text-align: center; color: var(--gold-primary); margin-bottom: 25px; font-size: 1.5rem; }
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-row { display: flex; gap: 20px; flex-wrap: wrap; }
+        .form-row input { flex: 1; min-width: 250px; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-light); font-size: 1rem; outline: none; transition: 0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold-primary); box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
+        .submit-btn { background: var(--gold-primary); color: #fff; border: none; padding: 15px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .submit-btn:hover { background: #b8962c; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
 
-        .float-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
+        /* ================= البار السفلي ================= */
+        .bottom-nav {
+            position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+            background-color: var(--header-bg); border: 1px solid var(--border-color);
+            border-radius: 40px; display: flex; justify-content: space-around; align-items: center;
+            padding: 8px 10px; width: 92%; max-width: 500px; z-index: 1000; backdrop-filter: blur(15px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
+        .bottom-nav a { color: var(--text-muted); text-decoration: none; font-size: 1.1rem; padding: 5px; border-radius: 12px; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; flex: 1; text-align: center; }
+        .bottom-nav a.active-nav { color: var(--gold-primary); }
+        .bottom-nav a:hover { color: var(--gold-primary); transform: translateY(-3px); }
+        .nav-text { font-size: 0.7rem; font-weight: 700; }
 
-        .float-btn:hover {
-            transform: scale(1.1);
-        }
+        /* ================= الأزرار العائمة ================= */
+        .floating-action-menu { position: fixed; bottom: 95px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
+        html[lang="ar"] .floating-action-menu { left: 15px; }
+        html[lang="en"] .floating-action-menu { right: 15px; }
 
-        .float-wa {
-            background-color: var(--whatsapp-color);
-        }
+        .float-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; text-decoration: none; color: white; border: 2px solid white; transition: transform 0.3s; }
+        .float-btn:hover { transform: scale(1.1); }
+        .call-btn { background-color: var(--gold-primary); animation: pulseCall 2s infinite; animation-delay: 1s; border-color: transparent; color: #1a110b;}
+        .wa-btn { background-color: #25d366; animation: pulseWA 2s infinite; border-color: transparent; }
+        @keyframes pulseWA { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        @keyframes pulseCall { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); } 70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
 
-        .float-call {
-            background-color: var(--call-color);
-            color: var(--bg-color); /* أيقونة داكنة على خلفية ذهبية */
-        }
+        /* التذييل */
+        footer { text-align: center; padding: 40px 15px 110px; background-color: var(--footer-bg); border-top: 1px solid var(--border-color); }
+        .copyright { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; font-weight: bold;}
+        .designer-badge { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); padding: 10px 25px; border-radius: 30px; text-decoration: none; background: rgba(0,0,0,0.1); transition: 0.3s; }
+        .designer-badge span { color: var(--silver); font-weight: bold; font-size: 0.8rem; letter-spacing: 0.5px; transition: color 0.3s ease; }
+        .designer-badge:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold-primary); transform: scale(1.05); }
+        .designer-badge:hover span { color: var(--gold-primary); }
 
-        /* تأثير نبض خفيف لزر الواتساب */
-        .float-wa::before {
-            content: '';
-            position: absolute;
-            width: 100%; height: 100%;
-            background-color: var(--whatsapp-color);
-            border-radius: 50%;
-            z-index: -1;
-            animation: pulseWa 2s infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes pulseWa {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
-
-        /* توافق الشاشات الصغيرة */
+        /* التجاوب للشاشات الصغيرة */
         @media (max-width: 768px) {
-            header { width: 96%; left: 2%; padding: 12px 20px; }
-            .site-title { font-size: 1.1rem; }
-            .status-text { display: none; /* إخفاء النص في الموبايل وترك النقطة فقط */ }
-            .floating-buttons { bottom: 20px; right: 20px; }
-            .float-btn { width: 50px; height: 50px; font-size: 24px; }
+            header { width: 96%; left: 2%; padding: 10px 20px; border-radius: 30px;}
+            .site-title { font-size: 1.05rem; }
+            section { padding: 110px 5% 40px; }
+            .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+            .hero { padding-top: 120px; min-height: 70vh; }
+            .hero h1 { font-size: 1.6rem; }
+            .grid-container { grid-template-columns: 1fr; gap: 20px; }
+            .map-container { height: 300px; }
+            .bottom-nav { width: 96%; bottom: 10px; }
+            .floating-action-menu { bottom: 85px; }
+            .float-btn { width: 45px; height: 45px; font-size: 1.3rem; }
         }
     </style>
 </head>
-<body>
+<body class="no-scroll">
+
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-image-frame">
+                <i class="fas fa-tree"></i>
+            </div>
+            <p class="loading-text">
+                <span class="ar">مؤسسة كيان الإبداع</span><span class="en">Kayan Al-Ebdaa</span>
+            </p>
+        </div>
+    </div>
 
     <header>
-        <div class="header-brand">
-            <h1 class="site-title">مؤسسة كيان الإبداع</h1>
+        <div class="header-right">
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            <div class="site-title">
+                <span class="ar">كيان الإبداع للديكور</span>
+                <span class="en">Kayan Decor</span>
+            </div>
         </div>
-        <div class="work-status">
-            <span class="status-dot"></span>
-            <span class="status-text">نعمل على مدار 24 ساعة</span>
+        <div class="header-left">
+            <div class="status-dot" title="نعمل 24 ساعة"></div>
+            <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle Theme"><i class="fas fa-sun"></i></button>
+            <button id="langToggleBtn" class="lang-btn">EN</button>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>مؤسسة كيان الإبداع للديكور الخشبي</h1>
-        <p>نقدم لك دمجاً مثالياً بين الفخامة والمتانة. متخصصون في تفصيل غرف النوم، الخزائن المبتكرة، والديكورات الجدارية. نصل إليك في كافة أحياء الرياض لتقديم تشطيبات خشبية ترتقي بمساحتك.</p>
+    <div class="side-menu" id="sideMenu">
+        <a href="#hero" onclick="toggleMenu()"><span class="ar">الرئيسية</span><span class="en">Home</span></a>
+        <a href="#about" onclick="toggleMenu()"><span class="ar">من نحن</span><span class="en">About Us</span></a>
+        <a href="#services" onclick="toggleMenu()"><span class="ar">خدماتنا</span><span class="en">Services</span></a>
+        <a href="#why-us" onclick="toggleMenu()"><span class="ar">لماذا نحن</span><span class="en">Why Us</span></a>
+        <a href="#contact" onclick="toggleMenu()"><span class="ar">تواصل معنا</span><span class="en">Contact</span></a>
+    </div>
+
+    <section id="hero" class="hero reveal">
+        <h1>
+            <span class="ar">مؤسسة كيان الإبداع للديكور الخشبي بالرياض</span>
+            <span class="en">Kayan Al-Ebdaa Wooden Decor Est. in Riyadh</span>
+        </h1>
+        <p>
+            <span class="ar">نقدم لك دمجاً مثالياً بين الفخامة والمتانة من خلال تفصيل غرف النوم، الخزائن المبتكرة، والديكورات الجدارية العصرية والكلاسيكية. نصل إليك في كافة أحياء الرياض لتقديم تشطيبات خشبية ترتقي بمساحتك وتعيش لأجيال.</span>
+            <span class="en">We offer a perfect blend of luxury and durability through custom bedrooms, innovative cabinets, and modern wall decors. We reach you in all Riyadh districts to provide wooden finishes that elevate your space.</span>
+        </p>
     </section>
 
-    <section class="section-alt" id="services">
-        <h2 class="section-title">خدماتنا المتميزة</h2>
+    <section id="about">
+        <h2 class="section-title reveal"><span class="ar">من نحن</span><span class="en">About Us</span></h2>
+        <div class="about-text reveal">
+            <span class="ar"><strong>مؤسسة كيان الإبداع،</strong> كيان رسمي متخصص في عالم الديكورات الخشبية والموبيليا الراقية بالرياض. نمتلك فريقاً من أمهر الفنيين والخبراء الميدانيين لتقديم حلول خشبية متكاملة. نجمع بين المهارة الحرفية والفهم العميق لأحدث اتجاهات التصميم الداخلي، لنقدم لك نتائج مبهرة تتجاوز توقعاتك بجودة لا تضاهى.</span>
+            <span class="en"><strong>Kayan Al-Ebdaa Est.</strong> is an official entity specialized in luxury wooden decors in Riyadh. We have a team of skilled technicians to provide comprehensive solutions. We combine craftsmanship with modern design trends to deliver stunning results.</span>
+        </div>
+    </section>
+
+    <section id="services" class="section-alt">
+        <h2 class="section-title reveal"><span class="ar">خدماتنا المتميزة</span><span class="en">Our Services</span></h2>
         <div class="grid-container">
-            <div class="service-card">
-                <div class="icon-wrapper"><i class="fas fa-bed"></i></div>
-                <h3>تفصيل غرف النوم</h3>
-                <p>تصميم وتفصيل غرف نوم كلاسيكية ومودرن باستخدام أجود أنواع الأخشاب التي تضمن لك الراحة والعمر الطويل.</p>
+            <div class="service-card reveal">
+                <div class="icon-3d-wrapper"><i class="fas fa-bed"></i></div>
+                <h3><span class="ar">تفصيل غرف النوم</span><span class="en">Custom Bedrooms</span></h3>
+                <p><span class="ar">تصميم وتفصيل غرف نوم كلاسيكية ومودرن باستخدام أجود أنواع الأخشاب التي تضمن لك الراحة والعمر الطويل.</span><span class="en">Design and execution of classic and modern bedrooms using the finest woods for comfort and longevity.</span></p>
             </div>
-            <div class="service-card">
-                <div class="icon-wrapper"><i class="fas fa-border-all"></i></div>
-                <h3>خزائن وديكورات جدارية</h3>
-                <p>ابتكار مساحات تخزين ذكية وخزائن ملابس (دريسنج روم) مصممة خصيصاً لتناسب مساحتك، بالإضافة للتجليد الخشبي للجدران.</p>
+            <div class="service-card reveal">
+                <div class="icon-3d-wrapper"><i class="fas fa-border-all"></i></div>
+                <h3><span class="ar">خزائن وديكورات جدارية</span><span class="en">Cabinets & Wall Decors</span></h3>
+                <p><span class="ar">ابتكار مساحات تخزين ذكية وخزائن ملابس (دريسنج روم) مصممة خصيصاً لتناسب مساحتك وتجليد الجدران.</span><span class="en">Innovative smart storage, dressing rooms, and luxurious wooden wall cladding tailored to your space.</span></p>
             </div>
-            <div class="service-card">
-                <div class="icon-wrapper"><i class="fas fa-tools"></i></div>
-                <h3>فك وتركيب وصيانة</h3>
-                <p>فريق محترف لفك وتركيب جميع أنواع الأثاث والديكورات الخشبية وصيانتها بدقة وعناية فائقة في موقعك.</p>
+            <div class="service-card reveal">
+                <div class="icon-3d-wrapper"><i class="fas fa-tools"></i></div>
+                <h3><span class="ar">فك وتركيب وصيانة</span><span class="en">Installation & Maintenance</span></h3>
+                <p><span class="ar">فريق محترف لفك وتركيب جميع أنواع الأثاث والديكورات الخشبية وصيانتها بدقة وعناية فائقة في موقعك.</span><span class="en">A professional team for assembling, installing, and maintaining all types of furniture carefully at your location.</span></p>
             </div>
         </div>
     </section>
 
-    <section id="contact">
-        <h2 class="section-title">نطاق عملنا وتواصل معنا</h2>
+    <section id="why-us">
+        <h2 class="section-title reveal"><span class="ar">لماذا نحن خيارك الأول؟</span><span class="en">Why Choose Us?</span></h2>
+        <div class="grid-container">
+            <div class="feature-card reveal">
+                <div class="icon-3d-wrapper"><i class="fas fa-medal"></i></div>
+                <h3><span class="ar">دقة وجودة فخمة</span><span class="en">Premium Quality</span></h3>
+                <p><span class="ar">نعتمد على أجود الأخشاب لضمان تشطيبات متينة وخالية من العيوب.</span><span class="en">We rely on the finest woods to ensure flawless finishes.</span></p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="icon-3d-wrapper"><i class="fas fa-clock"></i></div>
+                <h3><span class="ar">خدمة سريعة في موقعك</span><span class="en">Fast On-site Service</span></h3>
+                <p><span class="ar">نصل إليك أينما كنت في الرياض ونلتزم بمواعيد التسليم بدقة.</span><span class="en">We reach you anywhere in Riyadh and strictly deliver on time.</span></p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="icon-3d-wrapper"><i class="fas fa-tags"></i></div>
+                <h3><span class="ar">أسعار تنافسية</span><span class="en">Competitive Pricing</span></h3>
+                <p><span class="ar">نجمع بين أعلى معايير الجودة والفخامة مع أسعار تناسب ميزانيتك.</span><span class="en">Combining top luxury standards with affordable pricing.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-alt">
+        <h2 class="section-title reveal"><span class="ar">نطاق عملنا وتواصل معنا</span><span class="en">Our Reach & Contact</span></h2>
         
-        <div class="contact-info">
-            <p><i class="fas fa-map-marker-alt"></i> <strong>نطاق الخدمة:</strong> نغطي كافة أحياء مدينة الرياض (نشاط خدمي يصل إليك)</p>
-            <p><i class="fas fa-phone-alt"></i> <strong>الهاتف المحمول:</strong> <span dir="ltr">051 090 4657</span></p>
-            <p><i class="fas fa-clock"></i> <strong>ساعات العمل:</strong> متاحون لخدمتكم 24 ساعة يومياً</p>
+        <div class="contact-info reveal">
+            <p><i class="fas fa-map-marker-alt"></i> <span class="ar">نطاق الخدمة: نغطي كافة أحياء مدينة الرياض</span><span class="en">Service Area: All Riyadh Districts</span></p>
+            <p><i class="fas fa-phone-alt"></i> <span class="ar">الجوال: </span><span class="en">Phone: </span><a href="tel:0510904657" style="color:inherit; text-decoration:none; direction:ltr; display:inline-block;">0510904657</a></p>
+            <p><i class="fas fa-clock"></i> <span class="ar">ساعات العمل: متاحون لخدمتكم 24 ساعة يومياً</span><span class="en">Hours: Available 24/7</span></p>
+        </div>
+        
+        <div class="map-container reveal">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124119619!2d46.93630225102553!3d24.72545536440262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2z2KfZhNix2YrYp9i2!5e0!3m2!1sar!2ssa!4v1700000000000!5m2!1sar!2ssa" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="service-area-badge">
+                <i class="fas fa-truck" style="margin: 0 5px;"></i>
+                <span class="ar">نشاط خدمي يغطي كافة أحياء الرياض</span>
+                <span class="en">Service Business Covering All Riyadh</span>
+            </div>
         </div>
 
-        <div class="map-container">
-            <div class="service-area-badge"><i class="fas fa-truck"></i> نغطي كافة أحياء الرياض</div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124119619!2d46.93630225102553!3d24.72545536440262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2z2KfZhNix2YrYp9i2!5e0!3m2!1sar!2ssa!4v1700000000000!5m2!1sar!2ssa" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="contact-form-container reveal">
+            <h3><span class="ar">أرسل لنا تفاصيل طلبك</span><span class="en">Send Us Your Request</span></h3>
+            <form action="mailto:info@kayandecor.com" method="POST" enctype="text/plain" class="contact-form">
+                <div class="form-row">
+                    <input type="text" name="Name" placeholder="الاسم / Name" required>
+                    <input type="tel" name="Phone" placeholder="رقم الجوال / Phone Number" required>
+                </div>
+                <textarea name="Details" rows="4" placeholder="اكتب تفاصيل طلبك هنا... / Type your request details here..." required></textarea>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span class="ar">إرسال الطلب</span><span class="en">Send Message</span>
+                </button>
+            </form>
         </div>
     </section>
 
-    <div class="floating-buttons">
-        <a href="https://wa.me/966510904657" class="float-btn float-wa" target="_blank" title="تواصل عبر واتساب">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="tel:+966510904657" class="float-btn float-call" title="اتصل بنا الآن">
+    <div class="floating-action-menu">
+        <a href="tel:0510904657" class="float-btn call-btn" aria-label="Call">
             <i class="fas fa-phone-alt"></i>
+        </a>
+        <a href="https://wa.me/966510904657" class="float-btn wa-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
+    <nav class="bottom-nav">
+        <a href="#hero">
+            <i class="fas fa-home"></i>
+            <span class="nav-text"><span class="ar">الرئيسية</span><span class="en">Home</span></span>
+        </a>
+        <a href="#about">
+            <i class="fas fa-info-circle"></i>
+            <span class="nav-text"><span class="ar">من نحن</span><span class="en">About</span></span>
+        </a>
+        <a href="#services">
+            <i class="fas fa-tools"></i>
+            <span class="nav-text"><span class="ar">خدماتنا</span><span class="en">Services</span></span>
+        </a>
+        <a href="#contact">
+            <i class="fas fa-envelope"></i>
+            <span class="nav-text"><span class="ar">تواصل</span><span class="en">Contact</span></span>
+        </a>
+    </nav>
+
+    <footer>
+        <div class="copyright">
+            <span class="ar">جميع الحقوق محفوظة لدى : مؤسسة كيان الإبداع للديكور الخشبي 2026 &copy;</span>
+            <span class="en">All rights reserved to Kayan Al-Ebdaa Est. 2026 &copy;</span>
+        </div>
+        
+        <a href="https://wa.me/966547194788" target="_blank" class="designer-badge" rel="noopener noreferrer">
+            <span class="ar">👑 تم التصميم بواسطة المهندس إسلام الشيخ 👑</span>
+            <span class="en">👑 Designed by Eng. Islam Elsheikh 👑</span>
+        </a>
+    </footer>
+
+    <script>
+        // إعدادات شاشة التحميل
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }, 2000); // تقليل وقت التحميل لسرعة أفضل
+        });
+
+        // القائمة الجانبية
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+        }
+
+        // نظام اللغتين
+        const langBtn = document.getElementById('langToggleBtn');
+        let currentLang = 'ar';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            langBtn.innerText = lang === 'ar' ? 'EN' : 'AR';
+            localStorage.setItem('siteLang', lang);
+            document.getElementById('sideMenu').classList.remove('active');
+        }
+
+        langBtn.addEventListener('click', () => {
+            setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+        });
+
+        // نظام الوضع المظلم / الفاتح
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = themeBtn.querySelector('i');
+
+        function setTheme(isLight) {
+            if (isLight) {
+                document.body.classList.add('light-mode');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('siteTheme', 'light');
+            } else {
+                document.body.classList.remove('light-mode');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('siteTheme', 'dark');
+            }
+        }
+
+        themeBtn.addEventListener('click', () => {
+            const isCurrentlyLight = document.body.classList.contains('light-mode');
+            setTheme(!isCurrentlyLight);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('siteLang');
+            setLanguage(savedLang || 'ar');
+
+            const savedTheme = localStorage.getItem('siteTheme');
+            setTheme(savedTheme === 'light');
+        });
+
+        // الأنيميشن عند السكرول
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            reveals.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        setTimeout(revealOnScroll, 2100);
+    </script>
 </body>
 </html>
